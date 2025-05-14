@@ -36,6 +36,8 @@ def render_resultados
 
     #vamos a conectarnos al api y cpnsumirlo
     data = get_wather_results(cityname, api)
+    #se toma lña temperatura del json
+    temp = "{0:.2f}"format (data['main']['temp'])
 
 
 def get_wather_results(cityname, apy_key)
