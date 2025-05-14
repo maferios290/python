@@ -1,13 +1,13 @@
 #se importan las librerias a usar en el proyecto
 
-import request
+import requests
 import configparser
 
 #habilita las capacidades de servidor en la aplicacion, es la libreria encargada de gestionar la renderizacion de las vistas
 from flask import Flask, render_template, request # type. ignore
 
 #el objeto principal de la aplicacion se llama app
-app=Flask(_name_)
+app=Flask(__name__)
 
 
 
@@ -58,7 +58,7 @@ def render_resultados():
 
 def get_wather_results(cityname, apy_key):
     
-    url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}".format(cityname,appi_key)
+    url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}".format(cityname, apy_key)
 
     r = request.get(url)
     return r.json
@@ -78,9 +78,3 @@ def get_api_key():
 
 
 
-
-#esta condicion siempre va en los proyectos de python
-#e indica que por defecto el metodo principal 
-
-if _name_ =="_main_":
-app.run(debug=True)
