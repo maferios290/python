@@ -7,7 +7,7 @@ import configparser
 from flask import Flask, render_template, request # type. ignore
 
 #el objeto principal de la aplicacion se llama app
-app=FLask(_name_)
+app=Flask(_name_)
 
 
 
@@ -23,11 +23,11 @@ def weather_dashboard():
 
 
 #ruta que pinta los resultados
-@app.route ('/results')
-def render_resultados 
+@app.route ('/results', methods=['POST '])
+def render_resultados():
 
 #para poder mostrar los resultados antes debo saber cual es la ciudad que digito en el formulario
-    cityname= request.form['cityName']
+    cityname= request.form['cityname']
 
     #es pasarle el valor de la ciudad que el usuario digito al api
 
@@ -37,10 +37,26 @@ def render_resultados
     #vamos a conectarnos al api y cpnsumirlo
     data = get_wather_results(cityname, api)
     #se toma lña temperatura del json
-    temp = "{0:.2f}"format (data['main']['temp'])
+    temp = "{0:.2f}".format (data['main']['temp'])
+
+    #se toma la temperatura termica
+
+    feels_like = "{0:.2f}".format(data['main']['feels_like'])
+
+    #La condicion de temperatura
+
+    weather = data ["weather"]['main']
+
+    location = data['name']
 
 
-def get_wather_results(cityname, apy_key)
+    #pintar el json en la respuesta
+
+    return render_template ('results.html', location=location, temp = temp, feels_like = feels_like, weather = weather)
+
+
+
+def get_wather_results(cityname, apy_key):
     
     url = "https://api.openweathermap.org/data/2.5/weather?q={}&appid={}".format(cityname,appi_key)
 
